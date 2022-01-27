@@ -6,6 +6,7 @@ The model is adapted from our publication: Integrated model of yeast metabolism 
 
 
 **Abstract**
+
 Flux balance analysis (FBA) models are a powerful tool to study genome-scale models of the cellular metabolism, based on finding the optimal flux distributions over the network. While the objective function is crucial for the outcome, its choice, even though motivated by evolutionary arguments, has not been directly connected to related measures. Here, we used an available multi-scale mathematical model of the cellular metabolism, damage accumulation and ageing, to systematically test the effect of commonly used objective functions on features of replicative ageing in budding yeast, such as the number of cell divisions and the corresponding time between divisions. The simulations confirmed that assuming maximal growth is essential for reaching realistic lifespans. 
 The usage of the parsimonious solution or the additional maximisation of a growth-independent energy cost can improve lifespan predictions, explained by enhancing respiratory and antioxidative activity, using resources otherwise allocated to cellular growth, specifically in early life. 
 Our work provides a new perspective on choosing the objective function in FBA models by connecting it to replicative ageing.
