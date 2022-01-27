@@ -1,0 +1,123 @@
+# id	type	description	condition(if)	update(then)	alternative(else)	reference	active
+1	PKA	glucose sensing via Gpr1	exGlc.present && Gpr1.present	Gpr1.active = true	Gpr1.active = false	"Kraakman et al. 1999; Colombo et al. 1998"	1
+2	PKA	glucose sensing via Gpr1 induces activation of Gpa2	Gpr1.active && Gpa2.present	Gpa2.active = true	Gpa2.active = false	"Kraakman et al. 1999; Colombo et al. 1998"	1
+3	PKA	active Gpa2 inhibits Krh1/2 activity	(Gpa2.active && Krh1_2.present) || !Krh1_2.present	Krh1_2.active = false	Krh1_2.active = true	Peeters et al. 2006	1
+4	PKA	F16BP is present when glucose is present	exGlc.present	F16BP.present = true	F16BP.present = false	Peeters et al. 2017	1
+5	PKA	Cdc25 is activated by F16BP	F16BP.present && Cdc25.present	Cdc25.active = true	Cdc25.active = false	Peeters et al. 2017	1
+6	PKA	Ira1/2 is active under glucose depletion	!exGlc.present && Ira1_2.present	Ira1_2.active = true	Ira1_2.active = false	Bond et al. 2008	1
+7	PKA	active Cdc25 stimulates guanine nucleotide exchange in Ras1/2 from GDP to GTP	Ras1_2.present && Cdc25.active && !Ira1_2.active	Ras1_2.active = true	nothing	"Jones, Vignais, and Broach 1991; Robinson et al. 1987; Broek et al. 1987;  Kazuma Tanaka et al. 1990; K Tanaka, Matsumoto, and Toh-E 1989; Conrad et al. 2014"	1
+8	PKA	Ira1/2 stimulates guanine nucleotide exchange in Ras1/2 from GTP to GDP	(Ras1_2.active && !Cdc25.active && Ira1_2.active) || !Ras1_2.present	Ras1_2.active = false	nothing	Conrad et al. 2014	1
+9	PKA	AC is activated when Ras1/2 is activated, or Ras1/2 and Gpa2 is active	Ras1_2.active && AC.present && (Gpa2.active || !Gpa2.active)	AC.active = true	nothing	"Kataoka, Broek, and Wigler 1985; Takashi Toda et al. 1985; Rolland et al. 2000"	1
+10	PKA	cAMP is present when ATP is present and AC activated	ATP.present && AC.active	cAMP.present = true	nothing	"Sass et al. 1986; Nikawa, Sass, and Wigler 1987; Ma et al. 1999; Hu et al. 2010"	1
+11	PKA	cAMP is not present when AC is not activated and Pde1/2 is phosphorylated	!AC.active && Pde1_2.present && Pde1_2.phosphorylated	cAMP.present = false	nothing	"Sass et al. 1986; Nikawa, Sass, and Wigler 1987; Ma et al. 1999; Hu et al. 2010"	1
+12	PKA	PKA is present when one of Tpk1/2/3 is present	Tpk1.present || Tpk2.present || Tpk3.present	PKA.present = true	PKA.present = false	"Takashi Toda et al. 1987; Matsumoto et al. 1982"	1
+13	PKA	PKA is active when cAMP is there and Krh1/2 is inactive	(PKA.present && cAMP.present && !Krh1_2.active && Bcy1.present) || !Bcy1.present	PKA.active = true	nothing	"T. Peeters et al. 2006; Takashi Toda et al. 1987"	1
+14	PKA	PKA is inactive if Krh1/2 is active or no cAMP is there	(PKA.present && (!cAMP.present || Krh1_2.active) && Bcy1.present) || !PKA.present	PKA.active = false	nothing	"T. Peeters et al. 2006; Takashi Toda et al. 1987"	1
+15	PKA	Pde1_2 is activated through PKA mediated phosphorylation	PKA.active && Pde1_2.present	Pde1_2.phosphorylated = true	Pde1_2.phosphorylated = false	Hu et al. 2010	1
+16	PKA	active PKA phosphorylates Pfk2	PKA.active && Pfk2.present	Pfk2.phosphorylated = true	Pfk2.phosphorylated = false	Dihazi, Kessler, and Eschrich 2003	1
+17	PKA	active PKA phosphorylates Nth1	PKA.active && Nth1.present	Nth1.phosphorylated = true	Nth1.phosphorylated = false	Schepers et al. 2012	1
+18	PKA	active PKA phosphorylates Cdc19	PKA.active && Cdc19.present	Cdc19.phosphorylated = true	Cdc19.phosphorylated = false	Portela et al. 2002	1
+19	PKA	active PKA phosphorylates Fbp1	PKA.active && Fbp1.present	Fbp1.phosphorylated = true	Fbp1.phosphorylated = false	Rittenhouse, Moberly, and Marcus 1987 	1
+20	PKA	active PKA phosphorylates Rim15	PKA.active && Rim15.present	Rim15.phosphorylated = true	Rim15.phosphorylated = false	Swinnen et al. 2006	1
+21	PKA	phosphorylated Rim15 inhibits Gis1 activity	!Rim15.phosphorylated && Gis1.present	Gis1.phosphorylated = true	Gis1.phosphorylated = false	Swinnen et al. 2006	1
+22	PKA	phosphorylated Rim15 inhibits Msn2/4 activity	!Rim15.phosphorylated && Msn2_4.present	Msn2_4.phosphorylated = true	Msn2_4.phosphorylated = false	Swinnen et al. 2006	1
+23	PKA	phosphorylated Gis1 induces transcription of PDS genes	Gis1.phosphorylated	PDS.active = true	PDS.active = false	"I Pedruzzi et al. 2000; Martinez-Pastor et al. 1996; Conrad et al. 2014"	1
+24	PKA	phosphorylated Msn2/4 induces transcription of STRE, CTT1 genes	Msn2_4.phosphorylated	"STRE.active = true; CTT1.active = true"	"STRE.active = false; CTT1.active = false"	"I Pedruzzi et al. 2000; Martinez-Pastor et al. 1996; Conrad et al. 2014; Nakazawa et al. 2018"	1
+25	SNF1	glucose deprivation induces phosphorylation of Hxk2	!exGlc.present && Hxk2.present	Hxk2.phosphorylated = true	Hxk2.phosphorylated = false	"Fernandez-Garcia et al. 2012; Sanz et al. 1999"	1
+26	SNF1	Tos3, Sak1 and Elm1 can phosphorylate Snf1 under glucose deprivation	!exGlc.present && Snf1.present && !Reg1.phosphorylated &&  (Tos3.present || Sak1.present || Elm1.present)	Snf1.phosphorylated = true	nothing	"Hong et al. 2003; Sutherland et al. 2003; Sanz et al. 2000"	1
+27	SNF1	SNF complex is active when there is phosphorylated Snf1, Snf4 and either Sip1, Sip2 or Gal83	Snf1.phosphorylated && Snf4.present && (Sip1.present || Sip2.present || Gal83.present)	"SNF.present = true; SNF.active = true"	"SNF.present = false; SNF.active = false"		1
+28	SNF1	phosphorylation of Snf1 leads to phosphorylation of Reg1 via SNF complex and Glc7	Glc7.present && Reg1.present && SNF.active	Reg1.phosphorylated = true	nothing	Sanz et al. 2000	1
+29	SNF1	phosphorylated Hxk2 promotes Reg1 phosphorylation	Hxk2.phosphorylated && Reg1.present	Reg1.phosphorylated = true	nothing	Sanz et al. 2000	1
+30	SNF1	Reg1 phosphorylation stimulates Glc7 activity	Reg1.phosphorylated && Glc7.present	Glc7.active = true	Glc7.active = false	Sanz et al. 2000	1
+31	SNF1	active Glc7 dephosphorylates Reg1	Glc7.active && !Hxk2.phosphorylated && !Snf1.phosphorylated	Reg1.phosphorylated = false	nothing	Sanz et al. 2000	1
+32	SNF1	Mig1 is phosphorylated by active SNF complex	SNF.active && Mig1.present	Mig1.phosphorylated = true	Mig1.phosphorylated = false	"Westholm et al. 2008; Santangelo 2006; Broach 2012; Schueller 2003"	1
+33	SNF1	Cat8 is phosphorylated by active SNF complex	SNF.active && Cat8.present	Cat8.phosphorylated = true	Cat8.phosphorylated = false	"Broach 2012; Leverentz and Reece 2006; Turcotte et al. 2010; MacPherson, Larochelle, and Turcotte 2006"	1
+34	SNF1	Sip4 is phosphorylated by active SNF complex	SNF.active && Sip4.present	Sip4.phosphorylated = true	Sip4.phosphorylated = false	"Broach 2012; Leverentz and Reece 2006; Turcotte et al. 2010; MacPherson, Larochelle, and Turcotte 2006"	1
+35	SNF1	Acc1 is phosphorylated by active SNF complex	SNF.active && Acc1.present	Acc1.phosphorylated = true	Acc1.phosphorylated = false	Woods et al. 1994	1
+36	SNF1	Adr1 is phosphorylated by active SNF complex	SNF.active && Adr1.present	Adr1.phosphorylated = true	Adr1.phosphorylated = false	"Broach 2012; Leverentz and Reece 2006; Turcotte et al. 2010; MacPherson, Larochelle, and Turcotte 2006"	1
+37	SNF1	Mig1 represses the transcription of SUC2	Mig1.phosphorylated	SUC2.active = true	SUC2.active = false	"Westholm et al. 2008; Santangelo 2006; Broach 2012; Schueller 2003"	1
+38	SNF1	Adr1 induces the expression of ADH2	Adr1.phosphorylated	ADH2.active = true	ADH2.active = false	"Turcotte et al. 2010; Soontorngun et al. 2012; Broach 2012; Kacherovsky et al. 2008; Smith et al. 2011; Cherry et al. 1989"	1
+39	SNF1	Sip4 and Cat8 can induce expression of CSRE, PCK1 and FBP1 genes	Sip4.phosphorylated || Cat8.phosphorylated	"CSRE.active = true; PCK1.active = true; FBP1.active = true"	"CSRE.active = false; PCK1.active = false; FBP1.active = false"	"Broach 2012; Leverentz and Reece 2006; Turcotte et al. 2010; MacPherson, Larochelle, and Turcotte 2006"	1
+40	SNF1	Expression of FBP1 genes creates Fbp1 	FBP1.active 	Fbp1.present = true			1
+41	TOR	EGO is activated when nitrogen is available	NH3.present && EGO.present	EGO.active = true	EGO.active = false	"Binda et al. 2009; Bonfils et al. 2012; Bar-Peled et al. 2013"	1
+42	TOR	TOR complex consists of Tor1 or Tor2, Kog1, Tco89 and Lst8	(Tor1.present || Tor2.present) && Kog1.present && Tco89.present && Lst8.present	TOR.present = true	TOR.present = false	Reinke et al. 2004	1
+43	TOR	active EGO activates TOR complex	EGO.active && TOR.present	TOR.active = true	TOR.active = false	Binda et al. 2009	1
+44	TOR	active TOR complex phosphorylates Sch9	TOR.active && Sch9.present	Sch9.phosphorylated = true	Sch9.phosphorylated = false	Urban et al. 2007	1
+45	TOR	active TOR complex phosphorylates Tap42	TOR.active && Tap42.present	Tap42.phosphorylated = true	Tap42.phosphorylated = false	"Beck and Hall 1999; Jiang and Broach 1999; Di Como and Arndt 1996; Yan, Shen, and Jiang 2006"	1
+46	TOR	active TOR complex phosphorylates Sfp1	TOR.active && Sfp1.present	Sfp1.phosphorylated = true	Sfp1.phosphorylated = false	"Marion et al. 2004; Lempiaeinen et al. 2009"	1
+47	TOR	phosphorylated Sfp1 activates expression of genes for ribosomal biogenesis	Sfp1.phosphorylated	Ribosomal.active = true	Ribosomal.active = false	"Marion et al. 2004; Lempiaeinen et al. 2009"	1
+48	TOR	active TOR complex phosphorylates Mks1	TOR.active && Mks1.present	Mks1.phosphorylated = true	nothing	Hughes Hallett, Luo, and Capaldi 2014	1
+49	TOR	without glucose Mks1 is phosphorylated	!exGlc.present && Mks1.present	Mks1.phosphorylated = true	nothing	"Dilova et al. 2004; Broach 2012"	1
+50	TOR	active PP2A dephoshporylates Mks1	PP2A.active && Mks1.present	Mks1.phosphorylated = false	nothing	"Dilova et al. 2004; Broach 2012"	1
+51	TOR	unphosphorylated Mks1 complexes with Rtg2 allowing dephosphorylation of Rtg1/3	(Mks1.present && !Mks1.phosphorylated && Rtg2.present && Rtg1_3.present) || !Rtg1_3.present	Rtg1_3.phosphorylated = false	Rtg1_3.phosphorylated = true	"Dilova et al. 2004; Broach 2012; Hill and Van Remmen 2014"	1
+52	TOR	unphosphorylated Rtg1/3 can enter nucleus and induce expression of RTG genes	Rtg1_3.present && !Rtg1_3.phosphorylated	RTG.active = true	RTG.active = false	"Dilova et al. 2004; Broach 2012; Liu and Butow 1999"	1
+53	TOR	phosphorylated Tap42 binds PP2A therefore inhibiting phosphatase activity	(Tap42.phosphorylated && PP2A.present) || !PP2A.present	PP2A.active = false	PP2A.active = true	"Beck and Hall 1999; Jiang and Broach 1999; Di Como and Arndt 1996; Yan, Shen, and Jiang 2006)"	1
+54	TOR	active PP2A can dephosphorylate Gln3	(PP2A.active && Gln3.present) || !Gln3.present	Gln3.phosphorylated = false	Gln3.phosphorylated = true	"Georis et al. 2009; Broach 2012; Conrad et al. 2014"	1
+55	TOR	active PP2A can dephosphorylate Gat1	(PP2A.active && Gat1.present) || !Gat1.present	Gat1.phosphorylated = false	Gat1.phosphorylated = true	"Georis et al. 2009; Broach 2012; Conrad et al. 2014"	1
+56	TOR	dephosphorylated Gln3 and Gat1 can get into nucleus and activate NCR genes	(Gln3.present && !Gln3.phosphorylated) || (Gat1.present && !Gat1.phosphorylated)	NCR.active = true	NCR.active = false	"Georis et al. 2009; Broach 2012; Conrad et al. 2014"	1
+57	YAP1	H2O2 sensing via Gpx3	Gpx3.present && H2O2.present	Gpx3.oxidised = true	Gpx3.oxidised = false	Delaunay et al. 2002	1
+58	YAP1	Ybp1 activation by hydrogen peroxide	Ybp1.present && H2O2.present	Ybp1.active = true	Ybp1.active = false	Veal et al. 2003	1
+59	YAP1	Trx1/2 is oxidised when H2O2 is present	Trx1_2.present && H2O2.present	Trx1_2.oxidised = true	Trx1_2.oxidised = false	Boisnard et al. 2009	1
+60	YAP1	Yap1 is oxidised by oxidised Ybp1 and Gpx3, unless oxidised Trx1/2 is there	Yap1.present && Gpx3.oxidised && Ybp1.active && !Trx1_2.oxidised	Yap1.oxidised = true	Yap1.oxidised = false	"Delaunay et al. 2002; Veal et al. 2003"	1
+61	YAP1	Oxidised Yap1 activates Pse1	Yap1.oxidised && Pse1.present  	Pse1.active = true	Pse1.active = false	Isoyama et al. 2001	1
+62	YAP1	Crm1 is deactivated by oxidised Ybp1 and Gpx3	Crm1.present && Gpx3.oxidised && Ybp1.active	Crm1.active = false	Crm1.active = true	Kuge et al. 1998	1
+63	YAP1	oxidised Yap1 is transfered to the nucleus by Pse1 where it is activated	Yap1.oxidised && Pse1.active && !Crm1.active	Yap1.active = true	Yap1.active = false	Isoyama et al. 2001	1
+64	YAP1	active Yap1 induces TRX, GSH1, GLR1, TRR1 transcription	Yap1.active 	"TRX.active = true; GSH1.active = true; GLR1.active = true; TRR1.active = true"	"TRX.active = false; GSH1.active = false; GLR1.active = false; TRR1.active = false"	"Grant et al. 1996; Toone et al. 2001; MacIsaac et al. 2006"	1
+65	SLN1	Sln1 phosphorylation under oxidative stress	Sln1.present && H2O2.present	Sln1.phosphorylated = true	Sln1.phosphorylated = false	Singh et al. 2000	1
+66	SLN1	Ypd1 is phosphorylated by phosphorylated Sln1	Ypd1.present && Sln1.phosphorylated	Ypd1.phosphorylated = true	Ypd1.phosphorylated = false	Posas et al. 1996	1
+67	SLN1	Skn7 is oxidised by phosphorylated Ypd1	Skn7.present && Ypd1.phosphorylated	Skn7.oxidised = true	Skn7.oxidised = false	Xu et al. 2003	1
+68	SLN1	active Skn7 activates OLA1, DNM1 expression	Skn7.oxidised	"OLA1.active = true; DNM1.active = true"	"OLA1.active = false; DNM1.active = false"	Lee et al. 1999	1
+69	CROSSTALK	phosphorylated Sch9 can phosphorylate Rim15	Sch9.phosphorylated && Rim15.present	Rim15.phosphorylated = true	nothing	Wanke et al. 2008	1
+70	CROSSTALK	active PKA prevents expression of ADH2 through Adr1 inhibition	PKA.active && Adr1.phosphorylated	ADH2.active = false	nothing	"Turcotte et al. 2010; Soontorngun et al. 2012; Broach 2012; Kacherovsky et al. 2008; Smith et al. 2011; Cherry et al. 1989"	1
+71	CROSSTALK	phosphorylated Snf1 inhibits activation of TOR complex	Snf1.phosphorylated && EGO.active	TOR.active = false	nothing	Binda et al. 2009	1
+72	CROSSTALK	Snf1p phosphorylates Tap42	Snf1.phosphorylated && Tap42.present	Tap42.phosphorylated = true	nothing	Hughes Hallett, Luo, and Capaldi 2014	1
+73	CROSSTALK	Snf1p phosphorylates Tap42	!Snf1.phosphorylated && Tap42.present && !TOR.active	Tap42.phosphorylated = false	nothing	Hughes Hallett, Luo, and Capaldi 2014	1
+74	CROSSTALK	glucose activation of Reg1-Glc7 via PKA	exGlc.present && PKA.active && Glc7.active && Reg1.phosphorylated 	Snf1.phosphorylated = false	nothing	"Sanz et al. 2000; Barrett et al. 2012; Castermans et al. 2012"	1
+75	CROSSTALK	SNF complex deactivates AC/Cyr1	!Gpa2.active && !Ras1_2.active && SNF.active	AC.active = false	nothing	Nicastro et al. 2015	1
+76	CROSSTALK	active Trx1/2 mediates transport of Msn2/4 to the nucleus and its activation	Trx1_2.oxidised && Msn2_4.present	Msn2_4.active = true	nothing	"Boisnard et al. 2009; De Wever et al. 2005"	1
+77	ACTIVITY CONVERSION	Pde1/2 is active when phosphorylated	Pde1_2.phosphorylated	Pde1_2.active = true	Pde1_2.active = false		1
+78	ACTIVITY CONVERSION	Tpk1 is active when present	Tpk1.present	Tpk1.active = true	Tpk1.active = false		1
+79	ACTIVITY CONVERSION	Tpk2 is active when present	Tpk2.present	Tpk2.active = true	Tpk2.active = false		1
+80	ACTIVITY CONVERSION	Tpk3 is active when present	Tpk3.present	Tpk3.active = true	Tpk3.active = false		1
+81	ACTIVITY CONVERSION	Bcy1 is active when present	Bcy1.present	Bcy1.active = true	Bcy1.active = false		1
+82	ACTIVITY CONVERSION	Rim15 is active when dephosphorylated	Rim15.present && !Rim15.phosphorylated	Rim15.active = true	Rim15.active = false		1
+83	ACTIVITY CONVERSION	Gis1 is active when phosphorylated	Gis1.phosphorylated	Gis1.active = true	Gis1.active = false		1
+84	ACTIVITY CONVERSION	Msn2/4 is active when phosphorylated (without oxidative stress) or when Trx1/2 is active (with oxidative stress)	(Msn2_4.phosphorylated && !Trx1_2.active) || (Trx1_2.active && Msn2_4.present)	Msn2_4.active = true	Msn2_4.active = false	see also rule 76	1
+85	ACTIVITY CONVERSION	Tos3 is active when present	Tos3.present	Tos3.active = true	Tos3.active = false		1
+86	ACTIVITY CONVERSION	Sak1 is active when present	Sak1.present	Sak1.active = true	Sak1.active = false		1
+87	ACTIVITY CONVERSION	Elm1 is active when present+C87	Elm1.present	Elm1.active = true	Elm1.active = false		1
+88	ACTIVITY CONVERSION	Reg1 is active when phosphorylated	Reg1.phosphorylated	Reg1.active = true	Reg1.active = false		1
+89	ACTIVITY CONVERSION	Sip1 is active when present	Sip1.present	Sip1.active = true	Sip1.active = false		1
+90	ACTIVITY CONVERSION	Sip2 is active when present	Sip2.present	Sip2.active = true	Sip2.active = false		1
+91	ACTIVITY CONVERSION	Gal83 is active when present	Gal83.present	Gal83.active = true	Gal83.active = false		1
+92	ACTIVITY CONVERSION	Snf4 is active when present	Snf4.present	Snf4.active = true	Snf4.active = false		1
+93	ACTIVITY CONVERSION	Snf1 is active when phosphorylated	Snf1.phosphorylated	Snf1.active = true	Snf1.active = false		1
+94	ACTIVITY CONVERSION	Cat8 is active when phosphorylated	Cat8.phosphorylated	Cat8.active = true	Cat8.active = false		1
+95	ACTIVITY CONVERSION	Sip4 is active when phosphorylated	Sip4.phosphorylated	Sip4.active = true	Sip4.active = false		1
+96	ACTIVITY CONVERSION	Adr1 is active when phosphorylated and PKA complex is not active 	Adr1.phosphorylated && !PKA.active	Adr1.active = true	Adr1.active = false		1
+97	ACTIVITY CONVERSION	Mig1 is active when dephosphorylated	Mig1.present && !Mig1.phosphorylated	Mig1.active = true	Mig1.active = false		1
+98	ACTIVITY CONVERSION	Tor1 is active when present	Tor1.present	Tor1.active = true	Tor1.active = false		1
+99	ACTIVITY CONVERSION	Tor2 is active when present	Tor2.present	Tor2.active = true	Tor2.active = false		1
+100	ACTIVITY CONVERSION	Kog1 is active when present	Kog1.present	Kog1.active = true	Kog1.active = false		1
+101	ACTIVITY CONVERSION	Tco89 is active when present	Tco89.present	Tco89.active = true	Tco89.active = false		1
+102	ACTIVITY CONVERSION	Lst8 is active when present	Lst8.present	Lst8.active = true	Lst8.active = false		1
+103	ACTIVITY CONVERSION	Sch9 is active when phosphorylated	Sch9.phosphorylated	Sch9.active = true	Sch9.active = false		1
+104	ACTIVITY CONVERSION	Sfp1 is active when phosphorylated	Sfp1.phosphorylated	Sfp1.active = true	Sfp1.active = false		1
+105	ACTIVITY CONVERSION	Tap42 is active when phosphorylated	Tap42.phosphorylated	Tap42.active = true	Tap42.active = false		1
+106	ACTIVITY CONVERSION	Mks1 is active when phosphorylated	Mks1.phosphorylated	Mks1.active = true	Mks1.active = false	not sure if active when phosphorylated (binds Bmh1/2) or unphosphorylated (binds Rtg2)	1
+107	ACTIVITY CONVERSION	Rtg2 is active when present	Rtg2.present	Rtg2.active = true	Rtg2.active = false		1
+108	ACTIVITY CONVERSION	Rtg1/3 is active when dephosphorylated	Rtg1_3.present && !Rtg1_3.phosphorylated	Rtg1_3.active = true	Rtg1_3.active = false		1
+109	ACTIVITY CONVERSION	Gln3 is active when dephosphorylated	Gln3.present && !Gln3.phosphorylated	Gln3.active = true	Gln3.active = false		1
+110	ACTIVITY CONVERSION	Gat1 is active when dephosphorylated	Gat1.present && !Gat1.phosphorylated	Gat1.active = true	Gat1.active = false		1
+111	ACTIVITY CONVERSION	Pfk2 is active when phosphorylated	Pfk2.phosphorylated	Pfk2.active = true	Pfk2.active = false		1
+112	ACTIVITY CONVERSION	Nth1 is active when phosphorylated	Nth1.phosphorylated	Nth1.active = true	Nth1.active = false		1
+113	ACTIVITY CONVERSION	Cdc19 is active when phosphorylated	Cdc19.phosphorylated	Cdc19.active = true	Cdc19.active = false	increases activity in the absence of fructose-2,6-biphosphate, Portela et al. 2006	1
+114	ACTIVITY CONVERSION	Fbp1 is active when phosphorylated	Fbp1.phosphorylated	Fbp1.active = true	Fbp1.active = false	implemented as active tagging for degradation, Horn and Holzer 1986	1
+115	ACTIVITY CONVERSION	Acc1 is active when dephosphorylated	Acc1.present && !Acc1.phosphorylated	Acc1.active = true	Acc1.active = false		1
+116	ACTIVITY CONVERSION	Hxk2 is active when phosphorylated	Hxk2.phosphorylated	Hxk2.active = true	Hxk2.active = false		1
+117	ACTIVITY CONVERSION	Pyk2 is active when present and Cdc19 is active	Pyk2.present && Cdc19.active	Pyk2.active = true	Pyk2.active = false		1
+118	ACTIVITY CONVERSION	Gpx3 is active when oxidised	Gpx3.oxidised	Gpx3.active = true	Gpx3.active = false		1
+119	ACTIVITY CONVERSION	Sln1 is active when phosphorylated	Sln1.phosphorylated	Sln1.active = true	Sln1.active = false		1
+120	ACTIVITY CONVERSION	Ypd1 is active when phosphorylated	Ypd1.phosphorylated	Ypd1.active = true	Ypd1.active = false		1
+121	ACTIVITY CONVERSION	Skn7 is active when oxidised	Skn7.oxidised	Skn7.active = true	Skn7.active = false		1
+122	ACTIVITY CONVERSION	Trx1_2 is active when oxidised	Trx1_2.oxidised	Trx1_2.active = true	Trx1_2.active = false		1
