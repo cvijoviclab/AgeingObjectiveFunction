@@ -2,7 +2,7 @@ README
 ===============
 **The repository is part of the publication: The choice of the objective function in flux balance analysis is crucial for predicting replicative lifespans in yeast, Schnitzer et al., 2022**
 
-The model is adapted from our publication: Integrated model of yeast metabolism and replicative ageing reveals importance of metabolic phases during ageing, Schnitzer and Österberg et al., 2022, (https://github.com/cvijoviclab/IntegratedModelMetabolismAgeing)
+The model is adapted from our publication: Multi-scale model suggests the trade-off between protein and ATP demand as a driver of metabolic changes during yeast replicative ageing, Schnitzer and Österberg et al., 2022(https://www.biorxiv.org/content/10.1101/2022.03.07.483339v1) (https://github.com/cvijoviclab/IntegratedModelMetabolismAgeing)
 
 
 **Abstract**
